@@ -1,0 +1,21 @@
+pipeline {}
+
+    agent any
+
+    stages {
+        stage('Build'){
+	    steps {
+	        echo 'Building..'
+                docker build . -t project:index
+            }
+        stage('Test') {
+	    steps {
+	        echo 'Testing...'
+	    }
+	stage('Deploy') {
+	    steps {
+	        echo 'Deploying...'
+		container_id=$(docker run -d project:index)
+		echo 'Container started with id = '+$container_id
+	    }
+    }
